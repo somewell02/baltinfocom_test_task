@@ -1,0 +1,44 @@
+:root {
+  --primary-color: #506DAA;
+  --secondary-color: #C7C7C7;
+  --border-color: #ECECEC;
+  --input-color: #ECECEC;
+  --text-color: #000000;
+  --background-color: #ffffff;
+  --hover-color: #afafaf;
+}
+
+html {
+  font-family: "Montserrat", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+textarea {
+  resize: none;
+}
+
+h1 {
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: center;
+  color: var(--text-color);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+
+  @include media(1280px) {
+    margin: 0 40px;
+  }
+
+  @include media-lg {
+    margin: 0 30px;
+  }
+
+  @include media-xs {
+    margin: 0 20px;
+  }
+}
