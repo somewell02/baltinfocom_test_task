@@ -1,6 +1,6 @@
 <template>
-    <div class="app">
-        <router-view/>
+    <div class="vertical_list">
+        <slot></slot>
     </div>
 </template>
 
@@ -8,16 +8,13 @@
 import {defineComponent} from "vue";
 
 export default defineComponent({
-    name: "App",
-});
+    name: "VerticalList"
+})
 </script>
 
 <style lang="scss" scoped>
-.app {
-    padding: 40px 0;
-    min-height: 100vh;
+.vertical_list {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
 }
 </style>

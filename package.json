@@ -9,10 +9,14 @@
   },
   "dependencies": {
     "core-js": "^3.8.3",
+    "vk-openapi": "^0.1.2",
     "vue": "^3.2.13",
+    "vue-router": "^4.1.5",
     "vuex": "^4.0.0"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.12",
+    "@types/vk-openapi": "^1.6.1",
     "@typescript-eslint/eslint-plugin": "^5.4.0",
     "@typescript-eslint/parser": "^5.4.0",
     "@vue/cli-plugin-babel": "~5.0.0",
