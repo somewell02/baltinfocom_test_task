@@ -22,10 +22,14 @@ export default defineComponent({
     name: "HomeView",
 
     mounted() {
-        VkUserApi.getAllUsers()
-        //     .then(data => {
-        //     console.log(data);
-        // })
+        const id = "135381543";
+        const username = "somewell_sg";
+        VkUserApi.getUser(username)
+            .then(data => {
+                console.log(data)
+            }).catch(err => {
+                console.log(err)
+            });
     }
 })
 </script>
