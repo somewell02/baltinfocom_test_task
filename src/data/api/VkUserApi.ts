@@ -2,7 +2,9 @@ import VK from "vk-openapi";
 import {APP_ID} from "@/data/api/token";
 import VkUser from "@/types/VkUser";
 import VkCallResult from "@/types/VkCallResult";
-const API_VERSION = "5.131"
+
+const API_VERSION = "5.131";
+const USER_FIELDS = "screen_name,first_name,last_name,sex,counters,bdate,photo_400_orig"
 
 class VkUserApi {
     static {
@@ -13,6 +15,7 @@ class VkUserApi {
         const method = "users.get";
         const options = {
             user_ids: username,
+            fields: USER_FIELDS,
             v: API_VERSION,
         }
 
@@ -35,10 +38,11 @@ class VkUserApi {
         })
     }
 
-    static async getAllUsers(): Promise<Array<VkUser>> {
+    static async getUsersByIds(ids: Array<string>): Promise<Array<VkUser>> {
         const method = "users.get";
         const options = {
-            user_ids: "somewell_sg",
+            user_ids: ids.join(","),
+            fields: USER_FIELDS,
             v: API_VERSION,
         }
 
@@ -52,10 +56,29 @@ class VkUserApi {
         })
     }
 
-    static async getUserWall(id: string): Promise<any> {
+    static async searchUsers(query: string, count: number): Promise<Array<VkUser>> {
+        const method = "users.search";
+        const options = {
+            q: query,
+            fields: USER_FIELDS,
+            count: count,
+            v: API_VERSION,
+        }
+
+        return new Promise((resolve, reject) => {
+            VK.Api.call(method, options, (result: VkCallResult<VkUser>) => {
+                const { response } = result;
+                if (response) {
+                    resolve(response);
+                }
+            });
+        })
+    }
+
+    static async getUserWall(user_id: string): Promise<any> {
         const method = "wall.get";
         const options = {
-            owner_id: id,
+            owner_id: user_id,
             v: API_VERSION,
         }
 

@@ -24,7 +24,8 @@ export default defineComponent({
     mounted() {
         const id = "135381543";
         const username = "somewell_sg";
-        VkUserApi.getUser(username)
+        const query = "Самвел Григорян";
+        VkUserApi.searchUsers(query, 10)
             .then(data => {
                 console.log(data)
             }).catch(err => {
