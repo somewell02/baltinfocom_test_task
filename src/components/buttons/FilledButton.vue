@@ -19,9 +19,10 @@ button {
     height: 40px;
     font-size: 14px;
     border: 0;
+    border-radius: 8px;
     margin: 0;
     min-width: 120px;
-    color: var(--text-color);
+    color: var(--primary-text-color);
     background: var(--primary-color);
 
     &:hover {

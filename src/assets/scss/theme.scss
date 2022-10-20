@@ -1,5 +1,6 @@
 :root {
   --primary-color: #506DAA;
+  --primary-text-color: #ffffff;
   --secondary-color: #C7C7C7;
   --border-color: #ECECEC;
   --input-color: #ECECEC;
@@ -29,6 +30,10 @@ h1 {
 .container {
   max-width: 1200px;
   margin: 0 auto;
+
+  &.small-container {
+    max-width: 800px;
+  }
 
   @include media(1280px) {
     margin: 0 40px;

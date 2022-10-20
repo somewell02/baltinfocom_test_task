@@ -1,7 +1,8 @@
 import VK from "vk-openapi";
 import {APP_ID} from "@/data/api/token";
-import VkUser from "@/types/VkUser";
-import VkCallResult from "@/types/VkCallResult";
+import VkUser from "@/types/vk/VkUser";
+import VkCallResult from "@/types/vk/results/VkCallResult";
+import VkSearchCallResult from "@/types/vk/results/VkSearchCallResult";
 
 const API_VERSION = "5.131";
 const USER_FIELDS = "screen_name,first_name,last_name,sex,counters,bdate,photo_400_orig"
@@ -66,10 +67,10 @@ class VkUserApi {
         }
 
         return new Promise((resolve, reject) => {
-            VK.Api.call(method, options, (result: VkCallResult<VkUser>) => {
+            VK.Api.call(method, options, (result: VkSearchCallResult<VkUser>) => {
                 const { response } = result;
                 if (response) {
-                    resolve(response);
+                    resolve(response.items);
                 }
             });
         })

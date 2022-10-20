@@ -22,6 +22,7 @@ button {
     min-width: 120px;
     color: var(--text-color);
     border: 1px solid var(--border-color);
+    border-radius: 8px;
     background: none;
 
     &:hover {
