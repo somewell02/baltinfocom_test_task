@@ -6,7 +6,8 @@
         <div class="user__content">
             <div class="user__info">
                 <div class="user__info__item user__name">{{ user.first_name }} {{ user.last_name }}</div>
-                <div class="user__info__item user__gender__age">{{ user.sex }}, {{ user.bdate + " " + calculateAge }}</div>
+                <div class="user__info__item user__gender">Пол: {{ getGender }}</div>
+                <div class="user__info__item user__age">Возраст: {{ calculateAge }}</div>
                 <div class="user__info__item user__friends-count" v-if="type === 'default'">Количество друзей: {{ user.counters.friends }}</div>
             </div>
             <div class="user__actions">
@@ -14,7 +15,7 @@
 
                 </template>
                 <template v-else-if="type === 'search'">
-                    <filled-button>Добавить</filled-button>
+                    <filled-button class="user__actions__btn">Добавить</filled-button>
                 </template>
             </div>
         </div>
@@ -26,7 +27,8 @@ import FilledButton from "@/components/buttons/FilledButton.vue";
 
 import {computed, defineComponent, PropType, toRefs} from "vue";
 import VkUser from "@/types/vk/VkUser";
-import DateTimeManager from "@/services/DateTimeManager";
+import DateTimeManager from "@/services/managers/DateTimeManager";
+import VkUserGender from "@/types/vk/VkUserGender";
 
 export default defineComponent({
     name: "VkUserCard",
@@ -47,15 +49,34 @@ export default defineComponent({
     setup(props) {
         const { user } = toRefs(props);
 
-        const calculateAge = computed(() => {
-            if (user.value.bdate && user.value.bdate.split(".").length === 3) {
-                return DateTimeManager.calculateAge(user.value.bdate)
+        const getGender = computed((): string => {
+            if (user.value.sex) {
+                switch (user.value.sex) {
+                    case 1: return VkUserGender.Female.toLowerCase();
+                    case 2: return VkUserGender.Male.toLowerCase();
+                    default: return VkUserGender.NotSpecified.toLowerCase();
+                }
             } else {
-                return "возраст неопределен"
+                return VkUserGender.NotSpecified.toLowerCase();
+            }
+        })
+
+        const calculateAge = computed((): string => {
+            if (user.value.bdate && user.value.bdate.split(".").length === 3) {
+                const age: number = DateTimeManager.calculateAge(user.value.bdate);
+                const postfix: string = age % 10 === 1
+                    ? (age % 100 > 10 && age % 100 < 20) ? "лет" : "год"
+                    : [2, 3, 4].includes(age % 10)
+                        ? (age % 100 > 10 && age % 100 < 20) ? "лет" : "года"
+                        : "лет";
+                return `${age} ${postfix}`;
+            } else {
+                return "неопределен";
             }
         })
 
         return {
+            getGender,
             calculateAge
         }
     }
@@ -80,6 +101,9 @@ export default defineComponent({
     .user__content {
         flex-grow: 3;
         padding-left: 15px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
 
         .user__info {
             .user__info__item {
@@ -93,10 +117,15 @@ export default defineComponent({
                     font-size: 16px;
                     font-weight: 600;
                 }
+            }
+        }
+        .user__actions {
+            display: flex;
 
-                &.user__gender__age {
-
-                }
+            .user__actions__btn {
+                padding: 5px 10px;
+                height: 25px;
+                font-size: 12px;
             }
         }
     }

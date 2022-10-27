@@ -40,7 +40,7 @@ import FilledButton from "@/components/buttons/FilledButton.vue";
 import VkUserCard from "@/components/cards/VkUserCard.vue";
 import VkUser from "@/types/vk/VkUser";
 import ModalWrap from "@/components/popups/ModalWrap.vue";
-import DateTimeManager from "@/services/DateTimeManager";
+import DateTimeManager from "@/services/managers/DateTimeManager";
 
 export default defineComponent({
     name: "HomeView",
@@ -52,8 +52,6 @@ export default defineComponent({
     },
 
     setup() {
-        console.log(DateTimeManager.calculateAge("12.10.2002"));
-
         const userAddModal = ref(null);
 
         const query = ref<string>("");
@@ -96,6 +94,7 @@ export default defineComponent({
     }
 
     .user-add-modal {
+        width: 500px;
 
         .user__searched-list {
             margin-top: 20px;

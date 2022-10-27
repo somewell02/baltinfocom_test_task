@@ -21,7 +21,7 @@ button {
     border: 0;
     border-radius: 8px;
     margin: 0;
-    min-width: 120px;
+    min-width: 100px;
     color: var(--primary-text-color);
     background: var(--primary-color);
 
